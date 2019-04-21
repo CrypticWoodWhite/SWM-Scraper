@@ -1,6 +1,12 @@
 <div class="row" id="articles">
     <h3 class="title">Articles</h3>
 
+    <ul>
+        {{#each articles}}
+            <li><button type="button" data-id="{{id}}">{{article.title}}</button></li>
+        {{/each}}
+    </ul>
+
 </div>
 
 <br>
