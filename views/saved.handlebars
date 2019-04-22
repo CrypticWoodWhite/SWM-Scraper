@@ -1,3 +1,11 @@
 <section class="row" id="saved-articles">
     
+    <ul>
+        {{#each articles}}
+            {{#if saved}}
+                <li><a href="{{article.link}}">{{article.title}}</a></li>
+            {{/if}}
+        {{/each}}
+    </ul>
+
 </section>
