@@ -3,8 +3,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var CommentSchema = new Schema({
-  title: String,
-  body: String,
+  text: String,
   article: {
     type: Schema.Types.ObjectId,
     ref: "Article"
