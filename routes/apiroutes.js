@@ -6,6 +6,7 @@ require("mongoose");
 module.exports = function(app) {
 
     // Route for displaying all (unsaved) articles
+    // WORKS
     app.get("/", function(req, res) {
         db.Article.find(
             {saved: false},
@@ -25,6 +26,7 @@ module.exports = function(app) {
     });
 
     // scrape articles, check if already in db, save any new article to db
+    // WORKS
     app.post("/api/articles", function(req, res) {
         axios.get("https://www.swimmingworldmagazine.com/")
             .then(function(response) {
@@ -54,7 +56,8 @@ module.exports = function(app) {
         });
     });
 
-    // populate api endpoint
+    // populate unsaved api endpoint
+    // WORKS
     app.get("/api/articles", function(req, res) {
         db.Article.find({
             saved: false
@@ -64,6 +67,7 @@ module.exports = function(app) {
     });
 
     // update article to saved
+    // WORKS
     app.put("/api/articles/:_id", function(req, res) {
         db.Article.updateOne(
             {_id: req.params._id},
@@ -74,8 +78,23 @@ module.exports = function(app) {
             console.log(err);
         });
     });
+
+    // update article to NOT saved
+    // WORK IN PROGRESS PLEASE BE QUIET
+    app.put("/api/saved/:_id", function(req, res) {
+        db.Article.updateOne(
+            {_id: req.params._id},
+            {saved: req.body.saved}
+        ).then(function(dbSavedArticle) {
+            res.json(dbSavedArticle);
+            console.log(dbSavedArticle);
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
     
     // displaying all saved articles
+    // WORKS KBAI
     app.get("/saved", function(req, res) {
         db.Article.find(
             {saved: true}
@@ -89,7 +108,8 @@ module.exports = function(app) {
         });
     });
 
-    // populate api endpoint
+    // populate saved api endpoint
+    // WORKS NOTHING ELSE TO SAY
     app.get("/api/saved", function(req, res) {
         db.Article.find(
             {saved: true}
@@ -116,7 +136,7 @@ module.exports = function(app) {
     // app.post("/api/saved/:id", function(req, res) {
     //     db.Comment.create(req.body)
     //         .then(function(dbComments) {
-    //             return db.Article.findOneAndUpdate(
+    //             return db.Article.updateOne(
     //                 { 
     //                     _id: req.params.id
     //                 },

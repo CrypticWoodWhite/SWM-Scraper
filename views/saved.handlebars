@@ -19,7 +19,7 @@
         
         <ul id="saved-articles-list"></ul>
             {{#each articles}}
-                <li class="saved"><a href="{{link}}">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary delete" data-ident:"{{_id}}">Delete me</button> <button class="button view-add-comments" data-ident:"{{_id}}">Comments</button></li>
+                <li class="saved"><a href="{{link}}">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary delete" data-ident="{{_id}}">Delete me</button> <button class="button view-add-comments" data-identity="{{_id}}">Comments</button></li>
                 <!-- jqueryui modal here for comments -->
             {{/each}}
         </ul>
