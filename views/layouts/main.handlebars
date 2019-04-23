@@ -2,8 +2,12 @@
 
 <html lang="en-us">
 
-    <head>
-        <title>Blood-Horse Scraper</title>
+    <head>        
+        
+        <link rel="shortcut icon" href="#">
+        <!-- ^ prevent favicon.ico error -->
+        
+        <title>Swimming World Magazine Scraper</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
         <link rel="stylesheet" type="text/css" href="assets/css/skeleton.css">
@@ -13,25 +17,7 @@
 
     <body>
 
-        <div class="container">
-            <section class="header">
-                <h1 class="title">Blood-Horse Magazine Scraper</h1>
-            </section>
-            <nav class="navbar">
-                <div class="container">
-                    <ul class="navbar-list">
-                        <li class="navbar-item"><a class="navbar-link" href="/" id="home-button">Home</a></li>
-                        <li class="navbar-item"><a class="navbar-link" href="#" id="scrape-articles">Scrape new articles</a></li>
-                        <li class="navbar-item"><a class="navbar-link" href="/saved" id="view-saved-articles">Saved articles</a></li>
-                        <li class="navbar-item"><a class="button button-primary" href="#" id="clear-articles">Clear saved articles</a></li>
-                    </ul>
-                </div>
-            </nav>
-            <br>
-            
-            {{{ body }}}
-
-        </div>
+        {{{ body }}}
     
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -1,60 +1,68 @@
 $(document).ready(function() {
 
-    $(".scrape-articles").on("click", scrapeArticles());
-    $(".view-saved-articles").on("click", viewSavedArticles());
-    $(".save-article").on("click", saveArticle());
-    $(".clear-articles").on("click", clearArticles());
-    $(".save-comment").on("click", saveComment());
+    // initiate page by scraping articles and displaying them
+    let $emptyMssg = $("#empty-mssg");
+    const initPage = () => {
+        $emptyMssg.empty();
 
+        $.post("/api/articles").then(function() {
+            $.get("/api/articles").then(function(res) {
+                if (res || res.length > 0) {
+                    $emptyMssg.hide();
+                }
+                else {
+                    $emptyMssg.show();
+                }
+            })
+        }).catch(function(err) {
+            console.log(err);
+        });
+    }
     initPage();
 
-    let $articleCon = $(".article-container");
+    $("#scrape-articles").on("click", initPage());
 
-    const initPage = () => {
-        $articleCon.empty();
+    // const displayArticles = (articles) => {
+    //     // check if article already in db
+    //     // check if saved
+    // }
 
-        $.get("/articleHeadlines").then(function(res) {
-            if (res.length > 0) {
-                displayArticles(res);
+    // problem here with _id
+    $(".save-article").on("click", function(event) {
+        event.preventDefault();
+        // only unsaved articles should be on the page
+        let id = $(this).data("id");
+        console.log("id to be saved: " + id);
+        $.ajax("/api/articles/"+ id, {
+            type: "PUT",
+            data: {saved: true}
+        }).then(function(err, res) {
+            if (err) {
+                console.log(err);
             }
-            else {
-                $articleCon.prepend("<p>No articles to display</p>");
-            }
-        })
-    }
+        });
+        $(this).parents("li").remove();
+    })
 
-    const scrapeArticles = () => {
+    // const clearArticles = () => {
 
-    };
+    // };
 
-    const viewSavedArticles = () => {
-
-    };
-
-    const saveArticle = () => {
-
-        // if already saved show pop up saying so
-        // or disable button?
-
-    };
-
-    const clearArticles = () => {
-
-    };
-
-    const saveComment = () => {
+    // const saveComment = () => {
 
 
 
-        displayComment();
-    };
+    //     displayComment();
+    // };
 
-    const displayComment = () => {
+    // const displayComment = () => {
 
-    };
+    // };
 
-    const displayArticles = () => {
 
-    };
+    
+
+    // $("#clear-articles").on("click", clearArticles());
+    // $(".save-comment").on("click", saveComment());
 
 })

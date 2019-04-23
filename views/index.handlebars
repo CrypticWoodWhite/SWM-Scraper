@@ -1,9 +1,33 @@
-<section class="row" id="articles">
+<div class="container">
+    <section class="header">
+        <h1 class="title">Swimming World Magazine Scraper</h1>
+    </section>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="navbar-list">
+                <li class="navbar-item"><a class="navbar-link" href="/" id="scrape-articles">Scrape new articles</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="/saved" id="view-saved-articles">Saved articles</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    
+    <section class="row" id="articles">
+        <h3>Articles</h3>
 
-    <ul>
-        {{#each articles}}
-            <li><a href="{{article.link}}">{{article.title}}</a></li>
-        {{/each}}
-    </ul>
+        <div id="empty-mssg">No new articles to show.</div>
 
-</section>
+        <ul id="new-articles-list">
+            {{#each articles}}
+                <li><a href="{{link}}" target="_blank">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary save-article" id="{{_id}}">Save</button>
+                    <ul>
+                        <li>{{summary}}</li>
+                    </ul>
+                </li>
+                <br>
+            {{/each}}
+        </ul>
+
+    </section>
+
+</div>

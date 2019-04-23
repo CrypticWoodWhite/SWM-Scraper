@@ -1,80 +1,134 @@
-const db = require("../models/index.js");
+const db = require("../models");
 const axios = require("axios");
 const cheerio = require("cheerio");
+require("mongoose");
 
 module.exports = function(app) {
-    app.get("/articleHeadlines", function(req, res) {
-        axios.get("http://www.bloodhorse.com/horse-racing")
+
+    // Route for displaying all articles
+    app.get("/", function(req, res) {
+        db.Article.find(
+            {saved: false},
+            null,
+            {limit: 10},
+            function(err, dbArticles) {
+                if (err) {
+                    console.log(err);
+                }
+                let hbsObject = {
+                    articles: dbArticles
+                };
+                res.render("index", hbsObject);
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
+
+    // scrape articles, check if already in db, save any new article to db
+    app.post("/api/articles", function(req, res) {
+        axios.get("https://www.swimmingworldmagazine.com/")
             .then(function(response) {
                 let $ = cheerio.load(response.data);
-                $("article h4").each(function(i, element) {
-                    let result = {};
-                    result.title = $(this).children("a").text();
-                    result.link = $(this).children("a").attr("href");
+                $(".post-detail").each(function(i, element) {
+
+                    // check if article already in db using either title or link
+
+                    // if (article in database) {
+                        // then don't save
+                    // } else {
+                        let newArticle = {};
+                        newArticle.title = $(this).children("h2").text();
+                        newArticle.link = "http://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
+                        newArticle.summary = $(this).find("p").text();
     
-                    db.Article.create(result)
-                        .then(function(dbArticle) {
-                            console.log(dbArticle);
-                        }).catch(function(err) {
-                            console.log(err);
-                        });
+                        db.Article.create(newArticle)
+                            .catch(function(err) {
+                                console.log(err);
+                            });
+                    // }
+
                 });
                 res.send("Scrape complete");
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
+
+    // populate api endpoint
+    app.get("/api/articles", function(req, res) {
+        db.Article.find({
+            saved: false
+        }).then(function(results) {
+            res.json(results);
+        })
+    });
+
+    // update article to saved
+    app.put("/api/articles/:_id", function(req, res) {
+        db.Article.updateOne(
+            {_id: req.params.id},
+            {saved: req.params.saved}
+        ).then(function(dbSavedArticle) {
+            res.json(dbSavedArticle);
+        }).catch(function(err) {
+            console.log(err);
         });
     });
     
-    // Route for getting all articles
-    app.get("/", function(req, res) {
-        db.Article.find({})
-            .then(function(dbArticles) {
-                res.json(dbArticles);
-                res.render("index", dbArticles);
-            }).catch(function(err) {
-                res.json(err);
-            });
-    });
-    
-    // Route for viewing all saved articles
+    // displaying all saved articles
     app.get("/saved", function(req, res) {
-        db.Article.find({}) // need to edit this
-            .then(function(dbArticles) {
-                res.json(dbArticles);
-                res.render("saved", dbArticles);
-            }).catch(function(err) {
-                res.json(err);
-            });
+        db.Article.find(
+            {saved: true}
+        ).then(function(dbSavedArticles) {
+            // res.json(dbArticles);
+            res.render("saved", dbSavedArticles);
+        }).catch(function(err) {
+            console.log(err);
+        });
     });
+
+    // populate api endpoint
+    app.get("/api/saved", function(req, res) {
+        db.Article.find(
+            {saved: true}
+        ).then(function(dbArticles) {
+            res.json(dbArticles);
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
+
+    // // viewing comments on saved articles
+    // app.get("/api/saved/:id", function(req, res) {
+    //     db.Article.findOne({
+    //         _id: req.params.id
+    //     }).populate("Comment")
+    //         .then(function(dbArticles) {
+    //             res.json(dbArticles);
+    //         }).catch(function(err) {
+    //             console.log(err);
+    //         });
+    // });
     
-    app.get("/articles/:id", function(req, res) {
-        db.Article.findOne({
-            _id: req.params.id
-        }).populate("Comment")
-            .then(function(dbArticles) {
-                res.json(dbArticles);
-            }).catch(function(err) {
-                res.json(err);
-            });
-    });
-    
-    // Route for saving an article's associated comment
-    app.post("/articles/:id", function(req, res) {
-        db.Comment.create(req.body)
-            .then(function(dbComments) {
-                return db.Article.findOneAndUpdate(
-                    { 
-                        _id: req.params.id
-                    },
-                    {
-                        comment: dbComments._id
-                    },
-                    {
-                        new: true
-                    }
-                );
-            }).then(function(dbArticle) {
-                res.json(dbArticle);
-            }).catch(function(err) {
-                res.json(err);
-            });
-    });
+    // // saving an article's associated comment
+    // app.post("/api/saved/:id", function(req, res) {
+    //     db.Comment.create(req.body)
+    //         .then(function(dbComments) {
+    //             return db.Article.findOneAndUpdate(
+    //                 { 
+    //                     _id: req.params.id
+    //                 },
+    //                 {
+    //                     comment: dbComments._id
+    //                 },
+    //                 {
+    //                     new: true
+    //                 }
+    //             );
+    //         }).then(function(dbArticle) {
+    //             res.json(dbArticle);
+    //         }).catch(function(err) {
+    //             console.log(err);
+    //         });
+    // });
 }

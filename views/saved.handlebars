@@ -1,11 +1,27 @@
-<section class="row" id="saved-articles">
+<div class="container">
+    <section class="header">
+        <h1 class="title">Swimming World Magazine Scraper</h1>
+    </section>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="navbar-list">
+                <li class="navbar-item"><a class="navbar-link" href="/" id="scrape-articles">Scrape new articles</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="#" id="clear-articles">Clear saved articles</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
     
-    <ul>
-        {{#each articles}}
-            {{#if saved}}
-                <li><a href="{{article.link}}">{{article.title}}</a></li>
-            {{/if}}
-        {{/each}}
-    </ul>
+    <section class="row" id="saved-articles">
+        <h3>Saved articles</h3>
+        
+        <ul id="saved-articles-list"></ul>
+            {{#each articles}}
+                <li><a href="{{link}}">{{title}}</a> <button class="button-primary delete {{_id}}">Delete me</button> <button class="button view-add-comments {{_id}}">Comments</button></li>
+                <!-- gonna need a partial handlebar for the comments? or do a jquery modal -->
+            {{/each}}
+        </ul>
 
-</section>
+    </section>
+
+</div>

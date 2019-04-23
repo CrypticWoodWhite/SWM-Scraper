@@ -1,5 +1,12 @@
+html,
+body {
+    height: 100%;
+}
+
 .container {
     max-width: 900px;
+    min-height: 100%;
+    position: relative;
 }
 
 .header {
@@ -8,15 +15,24 @@
     vertical-align: bottom;
     width: 100%;
 
-    background-image: url(/assets/images/secretariat-belmont.jpg);
+    background-image: url(/assets/images/michael-phelps.jpg);
     background-repeat: no-repeat;
     background-size: contain;
+    background-position: center;
     background-attachment: fixed;
 }
 
 .title {
     text-shadow: 0px 0px 6px white;
     padding-top: 6rem;
+}
+
+#footer {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 2rem;
 }
 
 .value-prop {
@@ -139,7 +155,7 @@
 /* Larger than phone */
 @media (min-width: 550px) {
     .header {
-        max-height: 613px;
+        max-height: 495px;
     }
     .title {
         padding-top: 18rem;
@@ -174,6 +190,9 @@
 /* Larger than tablet */
 @media (min-width: 750px) {
     /* Navbar */
+    .title {
+        padding-top: 24rem;
+    }
     .navbar + .docs-section {
         border-top-width: 0;
     }
