@@ -66,8 +66,8 @@ module.exports = function(app) {
     // update article to saved
     app.put("/api/articles/:_id", function(req, res) {
         db.Article.updateOne(
-            {_id: req.params.id},
-            {saved: req.params.saved}
+            {_id: req.params._id},
+            {saved: req.body.saved}
         ).then(function(dbSavedArticle) {
             res.json(dbSavedArticle);
         }).catch(function(err) {
