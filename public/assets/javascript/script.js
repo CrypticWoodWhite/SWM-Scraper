@@ -39,7 +39,6 @@ $(document).ready(function() {
             if (err) {
                 console.log(err);
             }
-            console.log("res of save click: " + res);
         });
         $(this).parent("li").remove();
     })
@@ -73,7 +72,6 @@ $(document).ready(function() {
         event.preventDefault();
 
         let id = $(this).data("ident");
-        console.log("id: " + id);
         $.ajax("/api/articles/"+ id, {
             type: "PUT",
             data: {saved: false}
@@ -81,7 +79,6 @@ $(document).ready(function() {
             if (err) {
                 console.log(err);
             };
-            console.log("res of delete click: " + res);
         });
 
         $(this).parent("li").remove();
@@ -104,7 +101,7 @@ $(document).ready(function() {
 
         // below .each() method is not right, need to figure out key/val issue
         $.each($articlesToClear, function(key, val) {
-            let id = $articlesToClear[key].data("ident");
+            let id = $articlesToClear[key].data("id");
             console.log(id);
             $.ajax("/api/articles/"+ id, {
                 type: "PUT",

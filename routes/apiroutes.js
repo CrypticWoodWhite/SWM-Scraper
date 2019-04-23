@@ -26,7 +26,7 @@ module.exports = function(app) {
     });
 
     // scrape articles, check if already in db, save any new article to db
-    // WORKS
+    // WORK IN PROGRESS PLEASE BE QUIET
     app.post("/api/articles", function(req, res) {
         axios.get("https://www.swimmingworldmagazine.com/")
             .then(function(response) {
@@ -80,7 +80,7 @@ module.exports = function(app) {
     });
 
     // update article to NOT saved
-    // WORK IN PROGRESS PLEASE BE QUIET
+    // WORKS
     app.put("/api/saved/:_id", function(req, res) {
         db.Article.updateOne(
             {_id: req.params._id},
