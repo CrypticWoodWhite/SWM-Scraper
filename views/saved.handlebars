@@ -23,7 +23,11 @@
                 
                 <div class="dialog-form" title="Comments" data-ident="{{_id}}">
                     <div class="saved-comments">
-
+                        {{#each comments}}
+                            <p>{{text}}</p>
+                            <p>Posted by: {{name}}</p>
+                            <br>
+                        {{/each}}
                     </div>
                     <form class="new-comment" data-ident="{{_id}}">
                         <fieldset>

@@ -141,7 +141,7 @@ module.exports = function(app) {
                         _id: req.params.id
                     },
                     {
-                        comment: dbComments._id
+                        $push: {comment: dbComments._id}
                     }
                 );
             }).then(function(dbArticle) {
@@ -153,7 +153,10 @@ module.exports = function(app) {
 
     // retrieving an article's associated comments
     app.get("/api/comments/:id", function(req, res) {
-        db.Comment.findOne({_id: req.params.id}).then(
+        db.Comment.findOne({_id: req.params.id})
+            .then(function(articleComments) {
+                res.render("saved", articleComments)
+            }
 
         )
     });
