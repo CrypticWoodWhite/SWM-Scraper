@@ -19,7 +19,7 @@
 
         <ul id="new-articles-list">
             {{#each articles}}
-                <li><a href="{{link}}" target="_blank">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary save-article" data-id="{{_id}}">Save</button>
+                <li class="not-saved"><a href="{{link}}" target="_blank">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary save-article" data-id="{{_id}}">Save</button>
                     <ul>
                         <li>{{summary}}</li>
                     </ul>
@@ -28,6 +28,10 @@
             {{/each}}
         </ul>
 
+    </section>
+
+    <section class="footer">
+        <br><br><br><br>
     </section>
 
 </div>

@@ -19,11 +19,15 @@
         
         <ul id="saved-articles-list"></ul>
             {{#each articles}}
-                <li><a href="{{link}}">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary delete" data-ident:"{{_id}}">Delete me</button> <button class="button view-add-comments" data-ident:"{{_id}}">Comments</button></li>
-                <!-- gonna need a partial handlebar for the comments? or do a jquery modal -->
+                <li class="saved"><a href="{{link}}">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary delete" data-ident:"{{_id}}">Delete me</button> <button class="button view-add-comments" data-ident:"{{_id}}">Comments</button></li>
+                <!-- jqueryui modal here for comments -->
             {{/each}}
         </ul>
 
+    </section>
+
+    <section class="footer">
+        <br><br><br><br>
     </section>
     
 </div>

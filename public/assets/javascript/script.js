@@ -40,6 +40,7 @@ $(document).ready(function() {
     })
 
     $("#view-saved-articles").on("click", function(event) {
+
         let $emptySvdMssg = $("#empty-svd-mssg");
         $.get("/saved").then(function(res) {
             if (res || res.length > 0) {
@@ -50,7 +51,6 @@ $(document).ready(function() {
                 else if ($emptySvdMssg.hasClass("hide")) {
                     // do nothing
                 }
-
             }
             else {
                 if ($emptySvdMssg.hasClass("hide")) {
@@ -66,15 +66,41 @@ $(document).ready(function() {
         });
     });
 
+    // delete single saved article (change saved to false)
     $(".delete").on("click", function(event) {
         event.preventDefault();
-        let id=$(this).data("ident");
+
+        let id = $(this).data("ident");
+        $.ajax("/api/articles/"+ id, {
+            type: "PUT",
+            data: {saved: false}
+        }).then(function(err, res) {
+            if (err) {
+                console.log(err);
+            }
+            console.log("res of delete click: " + res);
+        });
+
         $(this).parent("li").remove();
+    });
+
+
+    $(".view-add-comments").on("click", function(event) {
+        event.preventDefault();
+
     })
 
 
     
+    // delete all saved articles
+    $("#clear-articles").on("click", function(event) {
+        $(".saved").remove();
 
-    // $("#clear-articles").on("click", clearArticles());
-    // $(".save-comment").on("click", saveComment());)
+    });
+
+
+    // save comment
+    $(".save-comment").on("click", function(event) {
+        event.preventDefault();
+    });
 })
