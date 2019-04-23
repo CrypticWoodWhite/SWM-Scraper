@@ -43,6 +43,14 @@ body {
     margin: 2rem;
 }
 
+.dialog-form {
+    background: white;
+    border: 1px solid black;
+    padding: 2rem;
+}
+
+/* nav bar, other skeleton stuff, and media queries below */
+
 .value-prop {
     margin-top: 1rem;
 }

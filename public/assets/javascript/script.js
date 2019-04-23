@@ -84,15 +84,6 @@ $(document).ready(function() {
         $(this).parent("li").remove();
     });
 
-
-    $(".view-add-comments").on("click", function(event) {
-        event.preventDefault();
-
-        // use jqueryui to make a modal dialog showing comments and allowing user to add a comment
-
-    })
-
-    
     // delete all saved articles
     $("#clear-articles").on("click", function(event) {
         $(".saved").remove();
@@ -116,8 +107,65 @@ $(document).ready(function() {
 
     });
 
-    // save comment
-    $(".save-comment").on("click", function(event) {
-        event.preventDefault();
+    /////////////////////////////////////////////////
+    // COMMENT CODE BELOW
+    /////////////////////////////////////////////////
+
+    let $comment = $(".comment-text");
+    let $name = $(".commenter-name");
+    let allFields = $([]).add($comment).add($name);
+
+    // submit comment
+    let submitComment = () => {
+        $(".submit-comment").on("click", function(event) {
+            event.preventDefault();
+
+            let commentText = $(this).siblings(".comment-text").val();
+            let nameText = $(this).siblings(".commenter-name").val();
+            let articleId = $(this).parents("form").data("ident");
+            let newComment = {
+                name: nameText,
+                text: commentText,
+                article: articleId
+            };
+
+            $.ajax("/api/comments/" + articleId, {
+                type: "POST",
+                data: newComment
+            }).then(function(err, res) {
+                if (err) {
+                    console.log(err);
+                };
+                console.log(res);
+            })
+        });
+    }
+
+    // comment modal
+    dialog = $(".dialog-form").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 600,
+        modal: true,
+        buttons: {
+            "Submit comment": submitComment(),
+        },
+        close: function() {
+            form[0].reset();
+            allFields.removeClass("ui-state-error");
+            dialog.dialog("close");
+        }
     });
+
+    let form = dialog.find("form").on("submit", function(event) {
+        event.preventDefault();
+        submitComment();
+    });
+
+    // view comments
+    $(".view-add-comments").on("click", function(event) {
+        event.preventDefault();
+        dialog.dialog( "open" );
+    });
+
 })

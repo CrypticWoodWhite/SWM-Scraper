@@ -13,7 +13,8 @@ var CommentSchema = new Schema({
     },
     article: {
         type: Schema.Types.ObjectId,
-        ref: "Article"
+        ref: "Article",
+        required: true
     }
 });
 

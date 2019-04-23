@@ -121,36 +121,40 @@ module.exports = function(app) {
     });
 
     // // viewing comments on saved articles
-    // app.get("/api/saved/:id", function(req, res) {
-    //     db.Article.findOne({
-    //         _id: req.params.id
-    //     }).populate("Comment")
-    //         .then(function(dbArticles) {
-    //             res.json(dbArticles);
-    //         }).catch(function(err) {
-    //             console.log(err);
-    //         });
-    // });
+    app.get("/api/saved/:id", function(req, res) {
+        db.Article.findOne({
+            _id: req.params.id
+        }).populate("comment")
+            .then(function(dbArticles) {
+                res.json(dbArticles);
+            }).catch(function(err) {
+                console.log(err);
+            });
+    });
     
-    // // saving an article's associated comment
-    // app.post("/api/saved/:id", function(req, res) {
-    //     db.Comment.create(req.body)
-    //         .then(function(dbComments) {
-    //             return db.Article.updateOne(
-    //                 { 
-    //                     _id: req.params.id
-    //                 },
-    //                 {
-    //                     comment: dbComments._id
-    //                 },
-    //                 {
-    //                     new: true
-    //                 }
-    //             );
-    //         }).then(function(dbArticle) {
-    //             res.json(dbArticle);
-    //         }).catch(function(err) {
-    //             console.log(err);
-    //         });
-    // });
+    // saving an article's associated comment
+    app.post("/api/comments/:id", function(req, res) {
+        db.Comment.create(req.body)
+            .then(function(dbComments) {
+                return db.Article.updateOne(
+                    { 
+                        _id: req.params.id
+                    },
+                    {
+                        comment: dbComments._id
+                    }
+                );
+            }).then(function(dbArticle) {
+                res.json(dbArticle);
+            }).catch(function(err) {
+                console.log(err);
+            });
+    });
+
+    // retrieving an article's associated comments
+    app.get("/api/comments/:id", function(req, res) {
+        db.Comment.findOne({_id: req.params.id}).then(
+
+        )
+    });
 }
