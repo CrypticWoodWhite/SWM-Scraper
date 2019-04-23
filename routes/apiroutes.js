@@ -5,7 +5,7 @@ require("mongoose");
 
 module.exports = function(app) {
 
-    // Route for displaying all articles
+    // Route for displaying all (unsaved) articles
     app.get("/", function(req, res) {
         db.Article.find(
             {saved: false},
@@ -80,8 +80,10 @@ module.exports = function(app) {
         db.Article.find(
             {saved: true}
         ).then(function(dbSavedArticles) {
-            // res.json(dbArticles);
-            res.render("saved", dbSavedArticles);
+            let hbsObject = {
+                articles: dbSavedArticles
+            };
+            res.render("saved", hbsObject);
         }).catch(function(err) {
             console.log(err);
         });

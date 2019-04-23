@@ -3,15 +3,16 @@ $(document).ready(function() {
     // initiate page by scraping articles and displaying them
     let $emptyMssg = $("#empty-mssg");
     const initPage = () => {
-        $emptyMssg.empty();
 
         $.post("/api/articles").then(function() {
             $.get("/api/articles").then(function(res) {
                 if (res || res.length > 0) {
-                    $emptyMssg.hide();
+                    $emptyMssg.removeClass("show");
+                    $emptyMssg.addClass("hide");
                 }
                 else {
-                    $emptyMssg.show();
+                    $emptyMssg.removeClass("hide");
+                    $emptyMssg.addClass("show");
                 }
             })
         }).catch(function(err) {
@@ -58,11 +59,36 @@ $(document).ready(function() {
     // const displayComment = () => {
 
     // };
+    $("#view-saved-articles").on("click", function(event) {
+        let $emptySvdMssg = $("#empty-svd-mssg");
+        $.get("/saved").then(function(res) {
+            if (res || res.length > 0) {
+                if ($emptySvdMssg.hasClass("show")) {
+                    $emptySvdMssg.removeClass("show");
+                    $emptySvdMssg.addClass("hide");
+                }
+                else if ($emptySvdMssg.hasClass("hide")) {
+                    // do nothing
+                }
+
+            }
+            else {
+                if ($emptySvdMssg.hasClass("hide")) {
+                    $emptySvdMssg.removeClass("hide");
+                    $emptySvdMssg.addClass("show");
+                }
+                else if ($emptySvdMssg.hasClass("hide")) {
+                    // do nothing
+                }
+            }
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
 
 
     
 
     // $("#clear-articles").on("click", clearArticles());
-    // $(".save-comment").on("click", saveComment());
-
+    // $(".save-comment").on("click", saveComment());)
 })
