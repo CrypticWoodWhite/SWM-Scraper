@@ -43,10 +43,35 @@ body {
     margin: 2rem;
 }
 
-.dialog-form {
+.dialog-form,
+.ui-dialog-titlebar {
     background: white;
-    border: 1px solid black;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+}
+
+.dialog-form {
+    padding: 0rem 2rem;
+}
+
+.ui-dialog-titlebar {
+    font-weight: bold;
     padding: 2rem;
+}
+
+.ui-button {
+    padding: 0 1rem;
+    margin: 0.5rem;
+    display: inline-flex;
+    right: 2rem;
+    top: 1rem;
+    bottom: 1rem;
+    position: absolute;
+}
+
+input,
+textarea {
+    width: 100%;
 }
 
 /* nav bar, other skeleton stuff, and media queries below */

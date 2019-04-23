@@ -155,7 +155,7 @@ module.exports = function(app) {
     app.get("/api/comments/:id", function(req, res) {
         db.Comment.findOne({_id: req.params.id})
             .then(function(articleComments) {
-                res.render("saved", articleComments)
+                res.render("comments > comment-block", articleComments)
             }
 
         )

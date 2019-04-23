@@ -136,20 +136,25 @@ $(document).ready(function() {
                 if (err) {
                     console.log(err);
                 };
-                console.log(res);
-            })
+                $.get("/api/comments/" + articleId).then(function(res) {
+                    console.log(res);
+                })
+            });
+
+            $(this).parent("form")[0].reset(); // this isn't working
+            allFields.removeClass("ui-state-error");
+
         });
     }
 
     // comment modal
     dialog = $(".dialog-form").dialog({
         autoOpen: false,
-        height: 400,
+        minHeight: 300,
+        maxHeight:1200,
         width: 600,
         modal: true,
-        buttons: {
-            "Submit comment": submitComment(),
-        },
+        closeText: "x",
         close: function() {
             form[0].reset();
             allFields.removeClass("ui-state-error");
