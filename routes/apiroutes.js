@@ -36,7 +36,7 @@ module.exports = function(app) {
                     // check if article already in db using either title or link
 
                     // if (article in database) {
-                        // then don't save
+                        // then don't add to db
                     // } else {
                         let newArticle = {};
                         newArticle.title = $(this).children("h2").text();
