@@ -126,7 +126,7 @@ module.exports = function(app) {
             _id: req.params.id
         }).populate("comments")
             .then(function(dbComments) {
-                res.json(dbComments);;
+                res.json(dbComments);
             }).catch(function(err) {
                 console.log(err);
             });
@@ -151,13 +151,23 @@ module.exports = function(app) {
             });
     });
 
-    // // retrieving an article's associated comments
-    // app.get("/api/comments/:id", function(req, res) {
-    //     db.Comment.findOne({_id: req.params.id})
-    //         .then(function(articleComments) {
-    //             res.render("comments>comments-block", articleComments)
-    //         }
+    // retrieving an article's associated comments
+    app.get("/api/comments/:id", function(req, res) {
+        db.Comment.findOne({_id: req.params.id})
+            .then(function(articleComments) {
+                res.json(articleComments);
+                // how do i ensure partial handlebar is populated correctly?
+            }
 
-    //     )
-    // });
+        )
+    });
+
+    // retrieving all comments
+    app.get("/api/comments", function(req, res) {
+        db.Comment.find({})
+            .then(function(dbComments) {
+                res.json(dbComments);
+            }
+        )
+    });
 }

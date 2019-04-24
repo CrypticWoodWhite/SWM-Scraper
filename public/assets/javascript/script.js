@@ -44,7 +44,7 @@ $(document).ready(function() {
     })
 
     // page where to see saved articles
-    // THIS WORKS YAY ON TO THE NEXT ONE!
+    // THIS MOSTLY WORKS
     $("#view-saved-articles").on("click", function(event) {
 
         let $emptySvdMssg = $("#empty-svd-mssg");
@@ -61,6 +61,7 @@ $(document).ready(function() {
                     $emptySvdMssg.addClass("show");
                 }
             }
+            // above conditional doesn't work
         }).catch(function(err) {
             console.log(err);
         });
@@ -138,13 +139,12 @@ $(document).ready(function() {
                 console.log(err);
             };
         });
-        $("form")[0].reset();
+        form[0].reset();
         allFields.removeClass("ui-state-error");
-        // location.reload();
     });
     
     // comment modal
-    dialog = $(".dialog-form").dialog({
+    const dialog = $(".dialog-form").dialog({
         autoOpen: false,
         minHeight: 300,
         maxHeight:1200,
@@ -162,15 +162,16 @@ $(document).ready(function() {
         event.preventDefault();
 
         let articleId = $(this).data("identity");
+
         $.get("/api/saved/" + articleId).then(function(res) {
-            let commentIds = [res.comments];
-            console.log("commendids: " + commentIds);
-            if (commentIds.length > 0) {
-                for (let i=0; i<commentIds.length; i++) {
-                    $.get("/api/comments/" + commentIds[i]);
-                };
-            } else if (commentIds.length = 0) {
+            let commentIds = [res.comments][0];
+
+            if (commentIds.length===0) {
                 $(".saved-comments").hide();
+            } else {
+                for (let i=0; i<commentIds.length; i++) {
+                    $.get("/api/comments/" + commentIds[i]._id);
+                };                
             }
         });
 
