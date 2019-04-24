@@ -32,17 +32,21 @@ module.exports = function(app) {
                 let $ = cheerio.load(response.data);
                 $(".post-detail").each(function(i, element) {
 
-                    // checking for articles not in db occurs in pre save hook (see Article.js)
                     let newArticle = {};
                     newArticle.title = $(this).children("h2").text();
                     newArticle.link = "http://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
                     newArticle.summary = $(this).find("p").text();
 
-                    db.Article.create(newArticle)
-                        .catch(function(err) {
-                            console.log(err);
-                        });
-
+                    db.Article.find(
+                        {title: newArticle.title},
+                        function(err, docs) {
+                            if (!docs.length) {
+                                db.Article.create(newArticle);
+                            } else {
+                                new Error("Article already in db!");
+                            }
+                        }
+                    )
                 });
                 res.send("Scrape complete");
             }).catch(function(err) {
