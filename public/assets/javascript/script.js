@@ -116,37 +116,32 @@ $(document).ready(function() {
     let allFields = $([]).add($comment).add($name);
 
     // submit comment
-    let submitComment = () => {
-        $(".submit-comment").on("click", function(event) {
-            event.preventDefault();
+    $(".submit-comment").on("click", function(event) {
+        event.preventDefault();
 
-            let commentText = $(this).siblings(".comment-text").val();
-            let nameText = $(this).siblings(".commenter-name").val();
-            let articleId = $(this).parents("form").data("ident");
-            let newComment = {
-                name: nameText,
-                text: commentText,
-                article: articleId
+        let commentText = $(this).siblings(".comment-text").val();
+        let nameText = $(this).siblings(".commenter-name").val();
+        let articleId = $(this).parents("form").data("ident");
+        let newComment = {
+            name: nameText,
+            text: commentText,
+            article: articleId
+        };
+        let form = $(this).parent("form");
+
+        $.ajax("/api/comments/" + articleId, {
+            type: "POST",
+            data: newComment
+        }).then(function(err, res) {
+            if (err) {
+                console.log(err);
             };
-
-            $.ajax("/api/comments/" + articleId, {
-                type: "POST",
-                data: newComment
-            }).then(function(err, res) {
-                if (err) {
-                    console.log(err);
-                };
-                $.get("/api/comments/" + articleId).then(function(res) {
-                    console.log(res);
-                })
-            });
-
-            $(this).parent("form")[0].reset(); // this isn't working
-            allFields.removeClass("ui-state-error");
-
         });
-    }
-
+        form[0].reset();
+        allFields.removeClass("ui-state-error");
+        // location.reload();
+    });
+    
     // comment modal
     dialog = $(".dialog-form").dialog({
         autoOpen: false,
@@ -156,21 +151,29 @@ $(document).ready(function() {
         modal: true,
         closeText: "x",
         close: function() {
-            form[0].reset();
             allFields.removeClass("ui-state-error");
             dialog.dialog("close");
         }
     });
 
-    let form = dialog.find("form").on("submit", function(event) {
-        event.preventDefault();
-        submitComment();
-    });
-
     // view comments
     $(".view-add-comments").on("click", function(event) {
         event.preventDefault();
-        dialog.dialog( "open" );
+
+        let articleId = $(this).data("identity");
+        $.get("/api/saved/" + articleId).then(function(res) {
+            console.log(res);
+            let commentIds = [res.comments];
+            console.log(commentIds);
+            if (commentIds.length > 0) {
+                for (let i=0; i<commentIds.length; i++) {
+                    $.get("/api/comments/" + commentIds[i]);
+                };
+            }
+        });
+
+        dialog.dialog("open");
+
     });
 
 })

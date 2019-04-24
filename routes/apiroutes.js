@@ -124,7 +124,7 @@ module.exports = function(app) {
     app.get("/api/saved/:id", function(req, res) {
         db.Article.findOne({
             _id: req.params.id
-        }).populate("comment")
+        }).populate("comments")
             .then(function(dbArticles) {
                 res.json(dbArticles);
             }).catch(function(err) {
@@ -141,7 +141,7 @@ module.exports = function(app) {
                         _id: req.params.id
                     },
                     {
-                        $push: {comment: dbComments._id}
+                        $push: {comments: dbComments._id}
                     }
                 );
             }).then(function(dbArticle) {
@@ -155,7 +155,7 @@ module.exports = function(app) {
     app.get("/api/comments/:id", function(req, res) {
         db.Comment.findOne({_id: req.params.id})
             .then(function(articleComments) {
-                res.render("comments > comment-block", articleComments)
+                res.render("comments>comments-block", articleComments)
             }
 
         )

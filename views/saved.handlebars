@@ -23,17 +23,18 @@
                 
                 <div class="dialog-form" title="Comments" data-ident="{{_id}}">
                     <div class="saved-comments">
+                        
                         {{> comments/comments-block}}
+                        <!-- partial not working -->
+
                     </div>
-                    <form class="new-comment" data-ident="{{_id}}">
-                        <fieldset>
-                            <label for="comment-text">Text</label>
-                            <textarea rows=5 class="text ui-widget-content ui-corner-all comment-text" required aria-required="true"></textarea>
-                            <label for="commenter-name">Name</label>
-                            <input type="text" class="text ui-widget-content ui-corner-all commenter-name" required aria-required="true">
-                            <br>
-                            <button class="button button-primary submit-comment" type="submit">Submit comment</button>
-                        </fieldset>
+                    <form class="new-comment" data-ident="{{_id}}" title="Add comment">
+                        <label for="comment-text">Text</label>
+                        <textarea rows=5 class="text ui-widget-content ui-corner-all comment-text" required aria-required="true"></textarea>
+                        <label for="commenter-name">Name</label>
+                        <input type="text" class="text ui-widget-content ui-corner-all commenter-name" required aria-required="true">
+                        <br>
+                        <button class="button button-primary submit-comment" type="submit">Submit</button>
                     </form>
                 </div>
 
