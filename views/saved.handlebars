@@ -19,16 +19,17 @@
         
         <ul id="saved-articles-list"></ul>
             {{#each articles}}
-                <li class="saved"><a href="{{link}}">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary delete" data-ident="{{_id}}">Delete me</button> <button class="button view-add-comments" data-identity="{{_id}}">Comments</button></li>
+                <li class="saved" data-identity="{{_id}}"><a href="{{link}}">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary delete" data-identity="{{_id}}">Delete me</button> <button class="button view-add-comments" data-identity="{{_id}}">Comments</button></li>
                 
-                <div class="dialog-form" title="Comments" data-ident="{{_id}}">
+                <div class="dialog-form" title="Comments" data-identity="{{_id}}">
                     <div class="saved-comments">
-                        
-                        {{> comments/comments-block}}
-                        <!-- partial not working -->
-
+                        {{#each comments}}
+                            <p>Name: {{name}}</p>
+                            <p>Comment: {{text}}</p>
+                            <br>
+                        {{/each}}
                     </div>
-                    <form class="new-comment" data-ident="{{_id}}" title="Add comment">
+                    <form class="new-comment" data-identity="{{_id}}" title="Add comment">
                         <label for="comment-text">Text</label>
                         <textarea rows=5 class="text ui-widget-content ui-corner-all comment-text" required aria-required="true"></textarea>
                         <label for="commenter-name">Name</label>

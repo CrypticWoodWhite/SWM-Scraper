@@ -71,7 +71,7 @@ $(document).ready(function() {
     $(".delete").on("click", function(event) {
         event.preventDefault();
 
-        let id = $(this).data("ident");
+        let id = $(this).data("identity");
         $.ajax("/api/articles/"+ id, {
             type: "PUT",
             data: {saved: false}
@@ -85,14 +85,12 @@ $(document).ready(function() {
     });
 
     // delete all saved articles
+    // WORKS YIPPEE
     $("#clear-articles").on("click", function(event) {
-        $(".saved").remove();
+        event.preventDefault();
 
-        let $articlesToClear = $(".saved").children("a");
-
-        // below .each() method is not right, need to figure out key/val issue
-        $.each($articlesToClear, function(key, val) {
-            let id = $articlesToClear[key].data("id");
+        $(".saved").each(function(index) {
+            let id = $(this).data("identity");
             console.log(id);
             $.ajax("/api/articles/"+ id, {
                 type: "PUT",
@@ -103,7 +101,9 @@ $(document).ready(function() {
                 }
                 console.log("res of clear click: " + res);
             });
-        })
+        });
+
+        $(".saved").remove();
 
     });
 
@@ -121,7 +121,7 @@ $(document).ready(function() {
 
         let commentText = $(this).siblings(".comment-text").val();
         let nameText = $(this).siblings(".commenter-name").val();
-        let articleId = $(this).parents("form").data("ident");
+        let articleId = $(this).parents("form").data("identity");
         let newComment = {
             name: nameText,
             text: commentText,
@@ -162,13 +162,14 @@ $(document).ready(function() {
 
         let articleId = $(this).data("identity");
         $.get("/api/saved/" + articleId).then(function(res) {
-            console.log(res);
             let commentIds = [res.comments];
             console.log(commentIds);
             if (commentIds.length > 0) {
                 for (let i=0; i<commentIds.length; i++) {
                     $.get("/api/comments/" + commentIds[i]);
                 };
+            } else if (commentIds.length = 0) {
+                $(".saved-comments").hide();
             }
         });
 
