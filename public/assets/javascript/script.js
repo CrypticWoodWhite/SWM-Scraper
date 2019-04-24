@@ -92,7 +92,6 @@ $(document).ready(function() {
 
         $(".saved").each(function(index) {
             let id = $(this).data("identity");
-            console.log(id);
             $.ajax("/api/articles/"+ id, {
                 type: "PUT",
                 data: {saved: false}
@@ -100,7 +99,6 @@ $(document).ready(function() {
                 if (err) {
                     console.log(err);
                 }
-                console.log("res of clear click: " + res);
             });
         });
 
