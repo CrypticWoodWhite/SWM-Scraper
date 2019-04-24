@@ -116,6 +116,7 @@ $(document).ready(function() {
     let allFields = $([]).add($comment).add($name);
 
     // submit comment
+    // works
     $(".submit-comment").on("click", function(event) {
         event.preventDefault();
 
@@ -137,7 +138,7 @@ $(document).ready(function() {
                 console.log(err);
             };
         });
-        form[0].reset();
+        $("form")[0].reset();
         allFields.removeClass("ui-state-error");
         // location.reload();
     });
@@ -163,7 +164,7 @@ $(document).ready(function() {
         let articleId = $(this).data("identity");
         $.get("/api/saved/" + articleId).then(function(res) {
             let commentIds = [res.comments];
-            console.log(commentIds);
+            console.log("commendids: " + commentIds);
             if (commentIds.length > 0) {
                 for (let i=0; i<commentIds.length; i++) {
                     $.get("/api/comments/" + commentIds[i]);
