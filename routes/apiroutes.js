@@ -11,7 +11,7 @@ module.exports = function(app) {
         db.Article.find(
             {saved: false},
             null,
-            {limit: 5},
+            {limit: 10},
             function(err, dbArticles) {
                 if (err) {
                     console.log(err);
@@ -25,14 +25,14 @@ module.exports = function(app) {
         });
     });
 
-    // scrape articles, check if already in db, save any new article to db
-    // WORK IN PROGRESS PLEASE BE QUIET
+    // scrape articles, save new articles to db
     app.post("/api/articles", function(req, res) {
         axios.get("https://www.swimmingworldmagazine.com/")
             .then(function(response) {
                 let $ = cheerio.load(response.data);
                 $(".post-detail").each(function(i, element) {
 
+                    // checking for articles not in db occurs in pre save hook (see Article.js)
                     let newArticle = {};
                     newArticle.title = $(this).children("h2").text();
                     newArticle.link = "http://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
