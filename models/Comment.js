@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var CommentSchema = new Schema({
+const CommentSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -18,6 +18,6 @@ var CommentSchema = new Schema({
     }
 });
 
-var Comment = mongoose.model("Comment", CommentSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
 
 module.exports = Comment;

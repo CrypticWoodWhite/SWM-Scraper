@@ -11,7 +11,7 @@ module.exports = function(app) {
         db.Article.find(
             {saved: false},
             null,
-            {limit: 10},
+            {limit: 5},
             function(err, dbArticles) {
                 if (err) {
                     console.log(err);
@@ -33,26 +33,20 @@ module.exports = function(app) {
                 let $ = cheerio.load(response.data);
                 $(".post-detail").each(function(i, element) {
 
-                    // check if article already in db using either title or link
+                    let newArticle = {};
+                    newArticle.title = $(this).children("h2").text();
+                    newArticle.link = "http://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
+                    newArticle.summary = $(this).find("p").text();
 
-                    // if (article in database) {
-                        // then don't add to db
-                    // } else {
-                        let newArticle = {};
-                        newArticle.title = $(this).children("h2").text();
-                        newArticle.link = "http://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
-                        newArticle.summary = $(this).find("p").text();
-    
-                        db.Article.create(newArticle)
-                            .catch(function(err) {
-                                console.log(err);
-                            });
-                    // }
+                    db.Article.create(newArticle)
+                        .catch(function(err) {
+                            console.log(err);
+                        });
 
                 });
                 res.send("Scrape complete");
-        }).catch(function(err) {
-            console.log(err);
+            }).catch(function(err) {
+                console.log(err);
         });
     });
 

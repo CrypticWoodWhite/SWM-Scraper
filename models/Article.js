@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var ArticleSchema = new Schema({
+const ArticleSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -26,6 +26,19 @@ var ArticleSchema = new Schema({
     }]
 });
 
-var Article = mongoose.model("Article", ArticleSchema);
+ArticleSchema.pre("save", function(next) {
+    Article.find(
+        {title: this.title},
+        function(err, docs) {
+            if (!docs.length) {
+                next();
+            } else {
+                next(new Error("Article already in db!"));
+            }
+        }
+    )
+})
+
+const Article = mongoose.model("Article", ArticleSchema);
 
 module.exports = Article;
