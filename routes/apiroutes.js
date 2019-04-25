@@ -37,17 +37,17 @@ module.exports = function(app) {
                     newArticle.link = "https://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
                     newArticle.summary = $(this).find("p").text();
 
-                    // below doesn't work in deployed version?!
-                    db.Article.find(
-                        {title: newArticle.title},
-                        function(err, docs) {
-                            if (!docs.length) {
-                                db.Article.create(newArticle);
-                            } else {
-                                new Error("Article already in db so not saved");
+                        // below doesn't work in deployed version?!
+                        db.Article.find(
+                            {title: newArticle.title},
+                            function(err, docs) {
+                                if (!docs.length) {
+                                    db.Article.create(newArticle);
+                                } else {
+                                    new Error("Article already in db so not saved");
+                                }
                             }
-                        }
-                    );
+                        );
                 });
                 res.send("Scrape complete");
             }).catch(function(err) {
