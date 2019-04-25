@@ -139,6 +139,7 @@ $(document).ready(function() {
         });
         form[0].reset();
         allFields.removeClass("ui-state-error");
+        location.reload();
     });
     
     // comment modal
