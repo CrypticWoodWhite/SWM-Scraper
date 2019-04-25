@@ -82,7 +82,7 @@ $(document).ready(function() {
             };
         });
 
-        $(this).parent("li").remove();
+        $(this).parents(".saved").remove();
     });
 
     // delete all saved articles
