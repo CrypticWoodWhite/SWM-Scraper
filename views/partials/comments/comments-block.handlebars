@@ -1,10 +1,10 @@
 {{#each articles}}
     {{#with comments}}
         {{#each comments}}
-            <p>Name: {{name}}</p>
-            <p>Comment: {{text}}</p>
+            <p>Name: {{comments.name}}</p>
+            <p>Comment: {{comments.text}}</p>
             <br>
-            {{else}}
+        {{else}}
             <p>No comments.</p>
             <br>
         {{/each}}

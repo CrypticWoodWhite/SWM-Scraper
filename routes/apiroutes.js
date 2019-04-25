@@ -156,7 +156,6 @@ module.exports = function(app) {
                 res.json(articleComments);
                 // how do i ensure partial handlebar is populated correctly?
             }
-
         )
     });
 
