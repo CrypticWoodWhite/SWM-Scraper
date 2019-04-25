@@ -39,7 +39,7 @@ module.exports = function(app) {
 
                     // below doesn't work in deployed version?!
                     db.Article.find(
-                        {title: newArticle.title},
+                        {title: newArticle.title}).then(
                         function(err, docs) {
                             if (!docs.length) {
                                 db.Article.create(newArticle);

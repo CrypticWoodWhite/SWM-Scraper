@@ -113,6 +113,7 @@ $(document).ready(function() {
     let $comment = $(".comment-text");
     let $name = $(".commenter-name");
     let allFields = $([]).add($comment).add($name);
+    let form = $("#comment-form");
 
     // submit comment
     // works
@@ -127,7 +128,6 @@ $(document).ready(function() {
             text: commentText,
             article: articleId
         };
-        let form = $(this).parent("form");
 
         $.ajax("/api/comments/" + articleId, {
             type: "POST",
@@ -154,6 +154,7 @@ $(document).ready(function() {
         modal: true,
         closeText: "x",
         close: function() {
+            form[0].reset();
             allFields.removeClass("ui-state-error");
             dialog.dialog("close");
         }

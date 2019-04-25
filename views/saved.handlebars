@@ -37,7 +37,7 @@
 
                 {{#each articles}}
                     {{!-- {{#with comments}} --}}
-                        {{#each comments}}
+                        {{#each this.comments}}
                             <p>Name: {{comments.name}}</p>
                             <p>Comment: {{comments.text}}</p>
                             <br>
@@ -51,7 +51,7 @@
                 {{!-- {{> comments/comments-block}} --}}
                 
             </div>
-            <form class="new-comment" title="Add comment">
+            <form class="new-comment" title="Add comment" id="comment-form">
                 <label for="comment-text">Text</label>
                 <textarea rows=5 class="text ui-widget-content ui-corner-all comment-text" required aria-required="true"></textarea>
                 <label for="commenter-name">Name</label>
