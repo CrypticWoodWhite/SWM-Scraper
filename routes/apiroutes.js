@@ -37,7 +37,7 @@ module.exports = function(app) {
                     newArticle.link = "https://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
                     newArticle.summary = $(this).find("p").text();
 
-                    // below doesn't work anymore?!
+                    // below doesn't work in deployed version?!
                     db.Article.find(
                         {title: newArticle.title},
                         function(err, docs) {
