@@ -176,7 +176,7 @@ $(document).ready(function() {
                 for (let i=0; i<commentIds.length; i++) {
                     $.get("/api/comments/" + commentIds[i]._id)
                         .then(function(res) {
-                            $(".saved-comments").append("<p>Name: " + res.name + "<br>Comment: " + res.text + "</p>");
+                            $(".saved-comments").append("<p><b>Comment:</b> " + res.text + "<br><b>Name:</b> " + res.name + "</p>");
                         });
                 };                
             } else {

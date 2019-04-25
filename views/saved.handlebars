@@ -32,27 +32,10 @@
 
         <div class="dialog-form" title="COMMENTS">
             <div class="saved-comments">
-
-                {{!-- how to show only comments of article that is clicked on? might have to use jquery/vanilla js for this functionality --}}
-
-                {{!-- {{#each articles}}
-                    {{#with comments}}
-                        {{#each this.comments}}
-                            <p>Name: {{comments.name}}</p>
-                            <p>Comment: {{comments.text}}</p>
-                            <br>
-                        {{else}}
-                            <p>No comments.</p>
-                            <br>
-                        {{/each}}
-                    {{/with}}
-                {{/each}} --}}
-
-                {{!-- {{> comments/comments-block}} --}}
                 
             </div>
             <form class="new-comment" title="Add comment" id="comment-form">
-                <label for="comment-text">Text</label>
+                <label for="comment-text">Add comment</label>
                 <textarea rows=5 class="text ui-widget-content ui-corner-all comment-text" required aria-required="true"></textarea>
                 <label for="commenter-name">Name</label>
                 <input type="text" class="text ui-widget-content ui-corner-all commenter-name" required aria-required="true">
