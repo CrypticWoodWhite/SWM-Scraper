@@ -22,7 +22,7 @@
                 <li class="saved" data-identity="{{_id}}"><span style="font-weight: bold;">{{title}}</span>&nbsp;&nbsp;&nbsp; <a href="{{link}} target='_blank'">Read more >></a>
                     <ul>
                         <li>
-                            <button class="button-primary delete" data-identity="{{_id}}">Delete me</button> <button class="button view-add-comments" data-identity="{{_id}}">Comments</button>
+                            <button class="button-primary delete" data-identity="{{_id}}">Delete</button> <button class="button view-add-comments" data-identity="{{_id}}">Comments</button>
                         </li>
                     </ul>
                 </li>
@@ -30,8 +30,10 @@
             {{/each}}
         </ul>
 
-            <div class="dialog-form" title="Comments">
+            <div class="dialog-form" title="COMMENTS">
                 <div class="saved-comments">
+
+                    {{!-- how to show only comments of article that is clicked on? might have to use jquery/vanilla js for this functionality --}}
 
                     {{#each articles}}
                         {{#with comments}}
