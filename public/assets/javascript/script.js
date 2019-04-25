@@ -40,7 +40,7 @@ $(document).ready(function() {
                 console.log(err);
             }
         });
-        $(this).parent("li").remove();
+        $(this).parents("li").remove();
     })
 
     // page where to see saved articles
