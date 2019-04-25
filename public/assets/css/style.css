@@ -27,12 +27,12 @@ body {
     padding-top: 6rem;
 }
 
-.show {
-    display: block;
-}
-
 .hide {
     display: none;
+}
+
+.show {
+    display: block;
 }
 
 ul {

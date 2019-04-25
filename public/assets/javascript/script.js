@@ -2,17 +2,8 @@ $(document).ready(function() {
 
     // initiate page by scraping articles and displaying them
     // THIS WORKS GO WORK ON SOMETHING ELSE CATHERINE
-    let $emptyMssg = $("#empty-mssg");
-    if ($("#new-articles-list").children("li").is(":empty")) {
-        $emptyMssg.removeClass("hide");
-        $emptyMssg.addClass("show");
-    }
-    else {
-        $emptyMssg.removeClass("show");
-        $emptyMssg.addClass("hide");
-    }
-
     const displayArticles = () => {
+
         $.post("/api/articles").then(function() {
             $.get("/api/articles")
             }).catch(function(err) {
@@ -22,7 +13,10 @@ $(document).ready(function() {
 
     // scrape for more articles and display them
     // WORKS
-    $("#scrape-articles").on("click", displayArticles());
+    $("#scrape-articles").on("click", function() {
+        displayArticles();
+        
+    });
 
     // save article (change saved to true)
     // THIS WORKS NO MORE TOUCHY
@@ -49,17 +43,8 @@ $(document).ready(function() {
         let $emptySvdMssg = $("#empty-svd-mssg");
         $.get("/saved").then(function(res) {
             if (res || res.length > 0) {
-                if ($emptySvdMssg.hasClass("show")) {
-                    $emptySvdMssg.removeClass("show");
-                    $emptySvdMssg.addClass("hide");
-                }
-            }
-            else {
-                if ($emptySvdMssg.hasClass("hide")) {
-                    $emptySvdMssg.removeClass("hide");
-                    $emptySvdMssg.addClass("show");
-                }
-            }
+                $emptySvdMssg.removeClass("hide");
+            };
             // above conditional doesn't work
         }).catch(function(err) {
             console.log(err);
@@ -143,8 +128,6 @@ $(document).ready(function() {
     
     // comment modal
 
-    // const dialog = $("div[data-identity='+articleId+'].dialog-form")
-
     const dialog = $(".dialog-form").dialog({
         autoOpen: false,
         minHeight: 300,
@@ -162,6 +145,9 @@ $(document).ready(function() {
     // view comments
     $(".view-add-comments").on("click", function(event) {
         event.preventDefault();
+
+        $(".dialog-form").removeClass("hide");
+        $(".dialog-form").addClass("show");
 
         let articleId = $(this).data("identity");
 
