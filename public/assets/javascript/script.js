@@ -3,23 +3,22 @@ $(document).ready(function() {
     // initiate page by scraping articles and displaying them
     // THIS WORKS GO WORK ON SOMETHING ELSE CATHERINE
     let $emptyMssg = $("#empty-mssg");
+    if ($("#new-articles-list").children("li").is(":empty")) {
+        $emptyMssg.removeClass("hide");
+        $emptyMssg.addClass("show");
+    }
+    else {
+        $emptyMssg.removeClass("show");
+        $emptyMssg.addClass("hide");
+    }
+
     const displayArticles = () => {
         $.post("/api/articles").then(function() {
-            $.get("/api/articles").then(function(res) {
-                if (res || res.length > 0) {
-                    $emptyMssg.removeClass("show");
-                    $emptyMssg.addClass("hide");
-                }
-                else {
-                    $emptyMssg.removeClass("hide");
-                    $emptyMssg.addClass("show");
-                }
-            })
-        }).catch(function(err) {
-            console.log(err);
+            $.get("/api/articles")
+            }).catch(function(err) {
+                console.log(err);
         });
-    }
-    displayArticles();
+    };
 
     // scrape for more articles and display them
     // WORKS
