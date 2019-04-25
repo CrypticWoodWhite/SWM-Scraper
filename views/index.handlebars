@@ -19,9 +19,14 @@
 
         <ul id="new-articles-list">
             {{#each articles}}
-                <li class="not-saved"><span style="font-weight: bold;">{{title}}</span>&nbsp;&nbsp;&nbsp;<button class="button-primary save-article" data-id="{{_id}}">Save</button>
+                <li class="not-saved"><span style="font-weight: bold;">{{title}}</span>
                     <ul>
-                        <li>{{summary}}&nbsp;&nbsp;&nbsp;<a href="{{link}}" target="_blank">Read more >></a></li>
+                        <li>
+                            {{summary}}&nbsp;&nbsp;&nbsp;<a href="{{link}}" target="_blank">Read more >></a>
+                        </li>
+                        <li>
+                            <button class="button-primary save-article" data-id="{{_id}}">Save</button>
+                        </li>
                     </ul>
                 </li>
                 <br>
