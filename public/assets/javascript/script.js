@@ -176,9 +176,11 @@ $(document).ready(function() {
                 for (let i=0; i<commentIds.length; i++) {
                     $.get("/api/comments/" + commentIds[i]._id)
                         .then(function(res) {
-                            console.log("comment: " + JSON.stringify(res));
+                            $(".saved-comments").append("<p>Name: " + res.name + "<br>Comment: " + res.text + "</p>");
                         });
                 };                
+            } else {
+                $(".saved-comments").html("<p>No comments yet.</p>");
             }
         });
         dialog.dialog("open");
