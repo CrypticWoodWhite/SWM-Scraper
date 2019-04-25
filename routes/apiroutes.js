@@ -34,7 +34,7 @@ module.exports = function(app) {
 
                     let newArticle = {};
                     newArticle.title = $(this).children("h2").text();
-                    newArticle.link = "http://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
+                    newArticle.link = "https://www.swimmingworldmagazine.com" + $(this).find("a").attr("href");
                     newArticle.summary = $(this).find("p").text();
 
                     db.Article.find(

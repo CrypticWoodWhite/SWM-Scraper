@@ -1,8 +1,12 @@
-{{#each this.comments}}
-    <p>Name: {{name}}</p>
-    <p>Comment: {{text}}</p>
-    <br>
-    {{else}}
-    <p>No comments.</p>
-    <br>
+{{#each articles}}
+    {{#with comments}}
+        {{#each comments}}
+            <p>Name: {{name}}</p>
+            <p>Comment: {{text}}</p>
+            <br>
+            {{else}}
+            <p>No comments.</p>
+            <br>
+        {{/each}}
+    {{/with}}
 {{/each}}

@@ -142,6 +142,9 @@ $(document).ready(function() {
     });
     
     // comment modal
+
+    // const dialog = $("div[data-identity='+articleId+'].dialog-form")
+
     const dialog = $(".dialog-form").dialog({
         autoOpen: false,
         minHeight: 300,
@@ -161,18 +164,22 @@ $(document).ready(function() {
 
         let articleId = $(this).data("identity");
 
+        $(".dialog-form").attr("data-identity", articleId);
+        $(".dialog-form").find("form").attr("data-identity", articleId);
+        
         $.get("/api/saved/" + articleId).then(function(res) {
             let commentIds = [res.comments][0];
 
             if (commentIds.length>0) {
                 for (let i=0; i<commentIds.length; i++) {
-                    $.get("/api/comments/" + commentIds[i]._id);
+                    $.get("/api/comments/" + commentIds[i]._id)
+                        .then(function(res) {
+                            console.log("comment: " + JSON.stringify(res));
+                        });
                 };                
             }
         });
-
         dialog.dialog("open");
-
     });
 
 })

@@ -21,7 +21,7 @@
             {{#each articles}}
                 <li class="saved" data-identity="{{_id}}"><a href="{{link}}">{{title}}</a>&nbsp;&nbsp;&nbsp;<button class="button-primary delete" data-identity="{{_id}}">Delete me</button> <button class="button view-add-comments" data-identity="{{_id}}">Comments</button></li>
                 
-                <div class="dialog-form" title="Comments" data-identity="{{_id}}">
+                {{!-- <div class="dialog-form" title="Comments" data-identity="{{_id}}">
                     <div class="saved-comments">
 
                         {{> comments/comments-block}}
@@ -35,10 +35,26 @@
                         <br>
                         <button class="button button-primary submit-comment" type="submit">Submit</button>
                     </form>
-                </div>
+                </div> --}}
 
             {{/each}}
         </ul>
+
+            <div class="dialog-form" title="Comments">
+                <div class="saved-comments">
+
+                    {{> comments/comments-block}}
+                    
+                </div>
+                <form class="new-comment" title="Add comment">
+                    <label for="comment-text">Text</label>
+                    <textarea rows=5 class="text ui-widget-content ui-corner-all comment-text" required aria-required="true"></textarea>
+                    <label for="commenter-name">Name</label>
+                    <input type="text" class="text ui-widget-content ui-corner-all commenter-name" required aria-required="true">
+                    <br>
+                    <button class="button button-primary submit-comment" type="submit">Submit</button>
+                </form>
+            </div>
 
     </section>
 
