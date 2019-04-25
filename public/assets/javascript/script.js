@@ -170,7 +170,7 @@ $(document).ready(function() {
         $.get("/api/saved/" + articleId).then(function(res) {
             let commentIds = [res.comments][0];
 
-            if (commentIds.length>0) {
+            if (commentIds.length > 0 || commentIds.length) {
                 for (let i=0; i<commentIds.length; i++) {
                     $.get("/api/comments/" + commentIds[i]._id)
                         .then(function(res) {

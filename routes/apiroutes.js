@@ -149,7 +149,7 @@ module.exports = function(app) {
             });
     });
 
-    // retrieving an article's associated comments
+    // retrieving a comment
     app.get("/api/comments/:id", function(req, res) {
         db.Comment.findOne({_id: req.params.id})
             .then(function(articleComments) {
