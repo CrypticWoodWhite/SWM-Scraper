@@ -36,14 +36,16 @@
                 {{!-- how to show only comments of article that is clicked on? might have to use jquery/vanilla js for this functionality --}}
 
                 {{#each articles}}
-                    {{#with comments}}
-                        <p>Name: {{name}}</p>
-                        <p>Comment: {{text}}</p>
-                        <br>
-                    {{else}}
-                        <p>No comments.</p>
-                        <br>
-                    {{/with}}
+                    {{!-- {{#with comments}} --}}
+                        {{#each comments}}
+                            <p>Name: {{comments.name}}</p>
+                            <p>Comment: {{comments.text}}</p>
+                            <br>
+                        {{else}}
+                            <p>No comments.</p>
+                            <br>
+                        {{/each}}
+                    {{!-- {{/with}} --}}
                 {{/each}}
 
                 {{!-- {{> comments/comments-block}} --}}
