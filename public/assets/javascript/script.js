@@ -6,7 +6,7 @@ $(document).ready(function() {
 
         $.post("/api/articles").then(function() {
             $.get("/api/articles")
-            }).catch(function(err) {
+        }).catch(function(err) {
                 console.log(err);
         });
     };
@@ -15,7 +15,6 @@ $(document).ready(function() {
     // WORKS
     $("#scrape-articles").on("click", function() {
         displayArticles();
-        
     });
 
     // save article (change saved to true)
